@@ -1,0 +1,24 @@
+# Debian Trixie Raspberry Pi 4 ARM64 compatible requirements
+
+# Core dependencies
+requests>=2.28.0
+websockets>=10.0
+aiohttp>=3.8.0
+flask>=2.0.0
+flask-socketio>=5.0.0
+pyyaml>=6.0
+click>=8.0.0
+colorama>=0.4.4
+
+# Audio processing - Pi 4 ARM64 compatible
+pyaudio>=0.2.11
+sounddevice>=0.4.4
+pydub>=0.25.1
+
+# Speech recognition - specific versions that work on ARM64
+vosk==0.3.45
+webrtcvad==2.0.10
+
+# Additional utilities
+numpy>=1.21.0
+scipy>=1.7.0

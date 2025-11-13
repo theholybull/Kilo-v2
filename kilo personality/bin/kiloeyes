@@ -1,0 +1,18 @@
+#!/usr/bin/env python3
+import json, os, time, sys
+p = "/opt/kilo/personality/state.json"
+try:
+    with open(p, "r", encoding="utf-8") as f:
+        s = json.load(f)
+except FileNotFoundError:
+    print("state.json not found at", p); sys.exit(1)
+except Exception as e:
+    print("cannot read state.json:", e); sys.exit(1)
+ts = s.get("updated_ts")
+ts_h = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(ts)) if ts else "n/a"
+print(f"mode:        {s.get('mode')}")
+print(f"eyes_state:  {s.get('eyes_state')}")
+print(f"sound_cue:   {s.get('sound_cue')}")
+print(f"last_cmd:    {s.get('last_cmd')}")
+print(f"last_status: {s.get('last_status')}")
+print(f"updated_ts:  {ts} ({ts_h})")

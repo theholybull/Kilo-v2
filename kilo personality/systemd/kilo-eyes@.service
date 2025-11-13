@@ -1,0 +1,21 @@
+[Unit]
+Description=Kilo Eyes Viewer for user %i
+After=graphical.target
+Wants=graphical.target
+
+[Service]
+Type=simple
+User=%i
+Environment=DISPLAY=:0
+Environment=XDG_RUNTIME_DIR=/run/user/%U
+# Keep screen readers off for this process tree
+Environment=NO_AT_BRIDGE=1
+WorkingDirectory=/opt/kilo/personality
+# Make super sure Orca isn't running under this user
+ExecStartPre=/usr/bin/killall -q orca
+ExecStart=/usr/local/bin/kiloeyes-launch.sh
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,9 @@
+{
+  "mode": "idle",
+  "last_cmd": null,
+  "last_status": "Starting",
+  "eyes_state": "idle",
+  "sound_cue": null,
+  "base": "/opt/kilo/personality",
+  "updated_ts": 1761516729
+}

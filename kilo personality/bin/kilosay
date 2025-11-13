@@ -1,0 +1,31 @@
+#!/usr/bin/env python3
+import os, sys, shutil, subprocess
+
+def kilo_tone(line: str) -> str:
+    line = (line or "").strip()
+    if not line: return "..."
+    if len(line) > 220: line = (line[:220]+"…").rsplit(" ",1)[0]
+    low = line.lower()
+    if "vespa" in low:  line += " Classy."
+    if "dodge" in low:  line += " Figures."
+    if "barney" in low: line += " Spare me."
+    return line
+
+def main():
+    if len(sys.argv) < 2:
+        print("usage: kilosay <text>", file=sys.stderr); return 2
+    text = kilo_tone(" ".join(sys.argv[1:]))
+
+    ps = shutil.which("piper-say")
+    if ps:
+        rc = subprocess.call([ps, text])
+        if rc == 0: return 0
+
+    es = shutil.which("espeak-ng") or shutil.which("espeak")
+    if es:
+        return subprocess.call([es, "-s","155","-p","35", text])
+
+    print("[kilosay] no TTS engine available", file=sys.stderr); return 1
+
+if __name__ == "__main__":
+    sys.exit(main())

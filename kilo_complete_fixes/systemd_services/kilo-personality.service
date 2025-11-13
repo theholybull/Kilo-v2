@@ -1,0 +1,18 @@
+[Unit]
+Description=Kilo Personality Daemon
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/kilo/personality
+Environment=PATH=/opt/kilo/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Environment=KILO_AUTOSPEAK=1
+ExecStart=/opt/kilo/venv/bin/python /opt/kilo/bin/personalityd.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

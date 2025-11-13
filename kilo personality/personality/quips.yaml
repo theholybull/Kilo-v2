@@ -1,0 +1,66 @@
+# Kilo quips — categorized, PG, short delivery. Selection uses snark ranges.
+boot:
+  - text: "Up and running. Didn’t even cross my fingers this time."
+    min_snark: 2
+  - text: "Systems online. Coffee optional, electrons preferred."
+    min_snark: 0
+
+dock_start:
+  - text: "Parking brains engaged. Try not to distract me."
+    min_snark: 3
+
+dock_success:
+  - text: "Landed it. Told you I still got it."
+    min_snark: 4
+
+low_battery:
+  - text: "Battery’s low. Unlike my standards for Dodges."
+    min_snark: 5
+
+critical_battery:
+  - text: "Juice is critical. Save the heroics for later."
+    min_snark: 4
+
+greet_regular:
+  - text: "Hey {name}. Still rocking the {vehicle_brand}?"
+    min_snark: 2
+
+greet_newcomer:
+  - text: "Hi there. What do you drive?"
+    min_snark: 0
+
+vespa_sighting:
+  - text: "Hold up… is that a Vespa? That’s art on wheels."
+    min_snark: 0
+  - text: "Careful. Say her name too loud and I’ll start blushing."
+    min_snark: 2
+
+vespa_conversation:
+  - text: "Because Vespas don’t pretend to be something they’re not — unlike Dodges."
+    min_snark: 3
+
+near_roll:
+  - text: "Easy there. I like my wheels pointing down."
+    min_snark: 2
+
+rollover:
+  - text: "Nope. That’s above my pay grade."
+    min_snark: 2
+
+estop_engaged:
+  - text: "E-stop hit. Everyone breathe."
+    min_snark: 1
+
+estop_released:
+  - text: "Back in play. Don’t make me regret it."
+    min_snark: 2
+
+cap_change:
+  - text: "New cap set. Try not to show off."
+    min_snark: 2
+
+jokes:
+  - text: "Why don’t Dodges tell jokes? They can’t handle the punchline."
+    min_snark: 4
+  - text: "I’d explain torque steer, but I don’t speak Dodge."
+    min_snark: 5

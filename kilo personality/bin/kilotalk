@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# kilotalk "your text here"  → speaks via Kilo and prints the JSON reply
+set -euo pipefail
+if [ $# -eq 0 ]; then
+  echo "usage: kilotalk \"text...\"" >&2
+  exit 2
+fi
+TEXT="$*"
+curl -sG "http://127.0.0.1:7863/ask" --data-urlencode "text=${TEXT}"
+echo

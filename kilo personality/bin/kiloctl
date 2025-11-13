@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+import sys, socket, json
+SOCK="/opt/kilo/personality/kilo.sock"
+def main():
+    if len(sys.argv) < 2:
+        print("usage: kiloctl <status|demo|sleep|wake|joke|scan|greeting>")
+        return 2
+    cmd = sys.argv[1].strip()
+    s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    s.settimeout(2.0)  # connect timeout
+    try:
+        s.connect(SOCK)
+    except Exception as e:
+        print(f"[ERR] connect to {SOCK} failed: {e}")
+        return 1
+    try:
+        s.settimeout(2.0)  # send/recv timeout
+        s.sendall((cmd+"\n").encode())
+        data = s.recv(8192)
+    except socket.timeout:
+        print("[ERR] timeout waiting for reply")
+        return 1
+    except Exception as e:
+        print(f"[ERR] socket error: {e}")
+        return 1
+    finally:
+        try: s.close()
+        except Exception: pass
+    try:
+        resp = json.loads(data.decode())
+        if resp.get("ok"):
+            print(resp.get("msg","OK"))
+            return 0
+        print("[ERR]", resp.get("error","unknown error"))
+        return 1
+    except Exception:
+        print(data.decode(errors="ignore").strip())
+        return 0
+if __name__=="__main__":
+    sys.exit(main())

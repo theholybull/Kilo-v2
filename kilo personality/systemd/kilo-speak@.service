@@ -1,0 +1,17 @@
+[Unit]
+Description=Kilo Speech HTTP for user %i
+After=multi-user.target
+Wants=multi-user.target
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/opt/kilo/personality
+ExecStart=/usr/bin/env python3 /opt/kilo/personality/kilo_speak_http.py
+Restart=on-failure
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

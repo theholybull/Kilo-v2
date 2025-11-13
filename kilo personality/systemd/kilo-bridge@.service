@@ -1,0 +1,19 @@
+[Unit]
+Description=Kilo HTTP Bridge (local) for user %i
+After=network-online.target
+Wants=network-online.target
+Wants=kilo-personality@%i.service
+After=kilo-personality@%i.service
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/opt/kilo/personality
+ExecStart=/usr/bin/env python3 /opt/kilo/personality/kilo_bridge_http.py
+Restart=on-failure
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

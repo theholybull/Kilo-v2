@@ -1,0 +1,20 @@
+[Unit]
+Description=Kilo Personality (%i)
+After=network-online.target
+Wants=network-online.target
+ConditionPathExists=/opt/kilo/personality/personalityd.py
+
+[Service]
+Type=simple
+User=%i
+Environment=KILO_PERSONALITY_DIR=/opt/kilo/personality
+EnvironmentFile=-/etc/kilo/personality.env
+WorkingDirectory=/opt/kilo/personality
+ExecStart=/opt/kilo/personality/venv/bin/python /opt/kilo/personality/personalityd.py --daemon
+Restart=on-failure
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

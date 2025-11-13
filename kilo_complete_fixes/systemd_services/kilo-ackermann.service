@@ -1,0 +1,17 @@
+[Unit]
+Description=Kilo Ackermann PWM Base Module
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/kilo/modules/ackermann-pwm-base
+Environment=PATH=/usr/local/go/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/opt/kilo/modules/ackermann-pwm-base/ackermann
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Usage: piper-say "your text here"
+set -euo pipefail
+MODEL="/usr/share/piper-voices/en_US/en_US-carlin-high/en_US-carlin-high.onnx"
+BIN="/usr/local/bin/piper-tts"   # wrapper we installed
+TEXT="${*:-}"
+if [[ -z "$TEXT" ]]; then
+  echo "usage: piper-say \"text...\"" >&2
+  exit 2
+fi
+if [[ ! -x "$BIN" ]]; then
+  echo "piper-tts not found at $BIN" >&2; exit 127
+fi
+if [[ ! -f "$MODEL" ]]; then
+  echo "model not found: $MODEL" >&2; exit 3
+fi
+WAV="$(mktemp /tmp/piper_XXXXXX.wav)"
+cleanup(){ rm -f "$WAV" 2>/dev/null || true; }
+trap cleanup EXIT
+
+# Some builds ignore -t and expect stdin. Use stdin and a timeout so it can't hang.
+# -m model, -f output, -s 0 (safe even if single-speaker), conservative params for stability.
+if ! timeout 20s bash -lc \
+  'printf "%s" "$0" | '"$BIN"' -m '"$MODEL"' -f '"$WAV"' -s 0 --length_scale 1.0 --noise_scale 0.667 --noise_w 0.8' \
+  "$TEXT"; then
+  echo "piper-tts timed out or failed" >&2
+  exit 4
+fi
+
+if [[ ! -s "$WAV" ]]; then
+  echo "piper produced no audio" >&2
+  exit 5
+fi
+
+# Play (prefer aplay)
+if command -v aplay >/dev/null 2>&1; then
+  aplay -q "$WAV" || { echo "aplay failed" >&2; exit 6; }
+elif command -v ffplay >/dev/null 2>&1; then
+  ffplay -nodisp -autoexit -loglevel quiet "$WAV" || { echo "ffplay failed" >&2; exit 6; }
+else
+  echo "no audio player (install alsa-utils or ffmpeg)" >&2
+  exit 7
+fi
+exit 0

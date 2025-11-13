@@ -1,0 +1,19 @@
+[Unit]
+Description=Kilo Sound Cue Daemon for user %i
+After=multi-user.target
+Wants=multi-user.target
+BindsTo=kilo-personality@%i.service
+After=kilo-personality@%i.service
+
+[Service]
+Type=simple
+User=%i
+WorkingDirectory=/opt/kilo/personality
+ExecStart=/usr/bin/env python3 /opt/kilo/personality/kilo_soundd.py
+Restart=on-failure
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,17 @@
+[Unit]
+Description=Kilo Android Audio Bridge (USB Tethering)
+After=network.target sound.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/kilo/bridges
+Environment=PATH=/opt/kilo/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/opt/kilo/venv/bin/python /opt/kilo/bridges/android_audio_bridge_usb.py
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

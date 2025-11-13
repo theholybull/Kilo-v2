@@ -1,0 +1,18 @@
+[Unit]
+Description=Kilo Ears (hotword + STT) for user %i
+After=multi-user.target sound.target
+Wants=multi-user.target
+
+[Service]
+Type=simple
+User=%i
+EnvironmentFile=-/etc/kilo/ears.env
+WorkingDirectory=/opt/kilo/personality
+ExecStart=/opt/kilo/personality/ears-venv/bin/python /opt/kilo/personality/kilo_ears.py
+Restart=on-failure
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target

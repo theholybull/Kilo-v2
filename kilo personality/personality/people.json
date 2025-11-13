@@ -1,0 +1,17 @@
+{
+  "people": [
+    {
+      "id": "owner",
+      "name": "Owner",
+      "tags": ["owner"],
+      "snark_level": 10,
+      "vehicle_brand": "Chevy",
+      "greet_opt_in": true,
+      "first_seen_iso": null,
+      "last_seen_iso": null,
+      "preferences": {},
+      "facts": [],
+      "triggers": []
+    }
+  ]
+}
